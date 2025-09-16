@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Birthday Surprise</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Great+Vibes&family=Orbitron:wght@700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+  <style>
+    /* FIXED HEADER - Must be first in CSS */
+    .site-header{
+      position:fixed !important; 
+      top:0 !important; 
+      left:0 !important; 
+      right:0 !important; 
+      width:100vw !important;
+      height:60px !important;
+      z-index:99999 !important;
+      background:linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #e74c3c 100%) !important;
+      padding:15px 20px !important; 
+      box-shadow:0 4px 20px rgba(0,0,0,0.6) !important;
+      border-bottom:3px solid rgba(255,255,255,0.2) !important;
+    }
+    .site-header::after{
+      content:'' !important; 
+      position:absolute !important; 
+      bottom:-20px !important; 
+      left:0 !important; 
+      right:0 !important; 
+      width:100% !important;
+      height:25px !important;
+      background:linear-gradient(135deg, #2c3e50 0%, #3498db 50%, #e74c3c 100%) !important;
+      border-radius:0 0 50% 50% !important;
+      box-shadow:0 2px 10px rgba(0,0,0,0.3) !important;
+    }
+    .header-content{
+      display:flex !important; 
+      align-items:center !important; 
+      gap:20px !important;
+      height:100% !important;
+    }
+    .header-name{ 
+      font-family:'Dancing Script', cursive !important; 
+      font-size:28px !important; 
+      color:#ffffff !important; 
+      line-height:1 !important; 
+      margin:0 !important;
+      font-weight:700 !important; 
+      text-shadow:2px 2px 4px rgba(0,0,0,0.5) !important;
+    }
+    .header-subtitle{ 
+      font-family:'Dancing Script', cursive !important; 
+      font-size:16px !important; 
+      color:rgba(255,255,255,0.95) !important; 
+      font-weight:400 !important; 
+      margin:0 !important;
+      text-shadow:1px 1px 2px rgba(0,0,0,0.3) !important;
+    }
+
+    /* reset & base */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{font-family:'Poppins',sans-serif;background:#07121a;color:#e9f3f8;overflow-x:hidden}
+    section{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:22px;position:relative}
+
+    /* Force all sections to start below fixed header */
+    section{ 
+      margin-top:110px !important;
+      padding-top:20px !important; 
+      position:relative !important;
+    }
+    
+    /* Specific adjustment for start page */
+    #page-start{
+      margin-top:110px !important;
+    }
+    
+    /* Remove default body margins that interfere with fixed positioning */
+    html, body{ 
+      margin:0 !important; 
+      padding:0 !important; 
+      overflow-x:hidden !important;
+    }
+
+    /* ================= Page 1 (dark) ================= */
+    #page-start{
+      background:linear-gradient(180deg,#071018 0%, #08141d 60%, #0b1722 100%);
+      color:#f5f8fb;
+      text-align:center;
+    }
+
+    /* center content */
+    #start-photo{
+      width:200px; height:200px; object-fit:cover; border-radius:12px;
+      box-shadow: 0 18px 36px rgba(2,6,23,0.6);
+      border:3px solid rgba(255,255,255,0.02);
+      margin:18px 0;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    }
+    #start-desc{ font-size:18px; color:rgba(255,255,255,0.92); line-height:1.45; margin:6px auto 14px; max-width:760px; }
+
+    /* feature card */
+    .info-card{
+      width:100%; max-width:560px; background:rgba(6,16,28,0.6); border-radius:12px;
+      padding:20px 18px; margin-top:12px; text-align:left; box-shadow: 0 8px 28px rgba(2,6,23,0.6);
+      color:#eaf0f7;
+    }
+    .info-card h4{ font-size:18px; margin-bottom:10px; }
+    .info-card ul{ margin-left:18px; margin-top:6px; color:rgba(235,241,247,0.95); line-height:1.6; }
+
+    /* name input row */
+    .name-row{ display:flex; gap:12px; margin-top:16px; width:100%; max-width:720px; align-items:center; }
+    .name-row input{
+      flex:1; min-width:160px; padding:12px 14px; border-radius:10px;
+      border:2px solid rgba(0,204,238,0.95); background:rgba(255,255,255,0.03);
+      color:#f7fbff; font-size:16px;
+    }
+    .name-row button{
+      padding:12px 18px; border-radius:10px; border:none; cursor:pointer;
+      background:linear-gradient(90deg,#7b61ff,#ff2da6); color:white; font-weight:600;
+      box-shadow:0 8px 24px rgba(123,97,255,0.18);
+    }
+
+    #name-greeting{ margin-top:12px; color:#d6eefb; font-weight:600; font-size:16px; }
+
+    /* Curved background sections - ensure visibility */
+    .curved-background{
+      position:relative; width:100vw; left:50%; transform:translateX(-50%); height:350px; margin:20px 0;
+      background:rgba(128,128,128,0.3); overflow:hidden; display:block;
+    }
+    .curved-background::before{
+      content:''; position:absolute; top:-50px; left:0; right:0; width:100%; height:100px;
+      background:linear-gradient(180deg,#071018 0%, #08141d 60%, #0b1722 100%); border-radius:0 0 50% 50%; transform:rotate(-1deg);
+      z-index:1;
+    }
+    .curved-background::after{
+      content:''; position:absolute; bottom:-50px; left:0; right:0; width:100%; height:100px;
+      background:linear-gradient(180deg,#071018 0%, #08141d 60%, #0b1722 100%); border-radius:50% 50% 0 0; transform:rotate(1deg);
+      z-index:1;
+    }
+    
+    /* Image frame - ensure proper layering */
+    .hand-drawn-frame{
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      width:200px; height:200px; z-index:10; display:block;
+    }
+    .hand-drawn-frame::before{
+      content:''; position:absolute; top:-5px; left:-5px; right:-5px; bottom:-5px;
+      border:3px solid rgba(0,0,0,0.9); border-radius:6px; z-index:-1;
+    }
+    .hand-drawn-frame img{
+      width:100% !important; height:100% !important; object-fit:cover !important; 
+      border-radius:6px !important; display:block !important; position:relative; z-index:5;
+    }
+
+    /* Footer only for start page */
+    .start-page-footer{
+      position:absolute; bottom:15px; left:50%; transform:translateX(-50%);
+      background:rgba(255,255,255,0.95); color:#333; font-size:0.8rem;
+      padding:8px 16px; border-radius:12px; box-shadow:0 3px 8px rgba(0,0,0,0.15);
+      border:1px solid rgba(255,255,255,0.9);
+    }
+
+    /* ================= Original pages styles ================= */
+    .light{ background:linear-gradient(#ffffff,#e6f7ff); color:#0b1220; }
+    .neon{ background:#000; color:#00f0ff; text-shadow:0 0 8px #00f0ff; font-family:'Orbitron',sans-serif; }
+    h1,h2,h3{ text-align:center; margin-bottom:20px; }
+    p{ max-width:600px; text-align:center; margin-bottom:20px; }
+    .hidden{ display:none; }
+    .input-wrap{ display:flex; align-items:center; gap:10px; }
+    input[type="password"], input[type="text"]{ padding:10px; border:2px solid #00ccee; border-radius:6px; font-size:1rem; }
+    button.simple{ padding:10px 20px; font-size:1rem; cursor:pointer; border:2px solid #00ccee; border-radius:6px; background:transparent; color:inherit; }
+
+    /* Additional styles from original */
+    .about-rot {
+      font-size:1.5rem;font-weight:600;color:#0b1220;
+      margin:10px 0;
+    }
+    #intro-image {
+      max-width:420px;width:90%;border-radius:8px;
+      object-fit:cover;margin:20px 0;
+    }
+    button {
+      padding:10px 20px;font-size:1rem;cursor:pointer;
+      border:2px solid #00ccee;border-radius:6px;
+      background:transparent;color:inherit;
+    }
+    button:focus {outline:3px solid #ff2da6;}
+    .typing {border-right:.1em solid #0b1220;white-space:nowrap;overflow:hidden;}
+    .eye-toggle {cursor:pointer;}
+    .note {font-size:0.9rem;text-align:center;margin-top:15px;color:#ff2da6;}
+    #music-page {flex-direction:column;}
+    #song-list {width:100%;max-height:40vh;overflow-y:auto;padding:10px;}
+    
+    #song-list h3, #song-list p {
+        font-family: 'Dancing Script', cursive;
+        text-shadow: none;
+        font-weight: 700;
+    }
+    #song-list h3 {
+        color:#ff2da6;
+        font-size: 2rem;
+    }
+    #song-list p {
+        cursor:pointer;
+        font-size: 1.5rem;
+        margin-bottom: 12px;
+    }
+
+    /* player / iframe */
+    #player-container{ width:100%; margin-top:20px; display:flex; flex-direction:column; align-items:center; position:relative; }
+    iframe{ width:95%; height:420px; max-height:70vh; border:none; border-radius:8px; }
+    #close-player {
+      position:absolute;top:10px;right:20px;
+      background:#ff2da6;color:#fff;border:none;border-radius:50%;
+      width:32px;height:32px;font-size:18px;cursor:pointer;
+    }
+    #fireworks-canvas {position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;}
+    
+    #final-thanks h1 {
+        font-family: 'Dancing Script', cursive;
+        font-size: 5rem;
+    }
+    
+    @media(max-width:768px){
+      #start-photo{ width:160px; height:160px; }
+      #start-desc{ font-size:16px; }
+      iframe{ height:260px; }
+      .name-row{ gap:8px; }
+      h1{ font-size:2rem !important; }
+      p{ font-size:14px !important; }
+      .curved-background{ height:300px; }
+      .hand-drawn-frame{ width:160px; height:160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Site Header - Stays on All Pages -->
+  <header class="site-header">
+    <div class="header-content">
+      <div class="header-name">Aditya</div>
+      <div class="header-subtitle">Personal Site</div>
+    </div>
+  </header>
+
+  <!-- ================= Page 1 (dark start page) ================= -->
+  <section id="page-start">
+    <!-- FIXED: Added padding-bottom to prevent footer overlap -->
+    <div style="width:calc(100vw - 20px);max-width:none;padding-top:20px;margin:0 auto;padding-left:10px;padding-right:10px;padding-bottom:60px;">
+      <!-- heading and welcome text -->
+      <h1 style="font-size:clamp(1.5rem, 4vw, 2.2rem);color:#f6f7fb;margin:15px 0;text-align:center;overflow-wrap:break-word;">It's Aditya</h1>
+      <p style="color:#ddd;margin:8px 0 15px;width:100%;text-align:center;overflow-wrap:break-word;line-height:1.4;font-size:clamp(13px, 3vw, 16px);">Welcome! Here's a simple, elegant page I built while practicing front end design.</p>
+
+      <!-- curved background section with photo inside -->
+      <div class="curved-background">
+        <div class="hand-drawn-frame">
+          <img src="Aditya_11.jpg" alt="Aditya photo" style="width:100%;height:100%;object-fit:cover;border-radius:6px;display:block;">
+        </div>
+      </div>
+
+      <!-- small centered description -->
+      <div id="start-desc" style="font-size:clamp(13px, 3vw, 16px);color:rgba(255,255,255,0.92);line-height:1.3;margin:5px 0;width:100%;overflow-wrap:break-word;text-align:center;">This is a small experiment to test my coding skills.</div>
+
+      <!-- Features list -->
+      <div style="margin:20px auto;max-width:600px;text-align:left;">
+        <h3 style="color:#eaf0f7;margin-bottom:15px;text-align:center;">Features of this experiment:</h3>
+        <ul style="color:#d6eefb;line-height:1.8;padding-left:20px;">
+          <li>Responsive layout with a crisp image</li>
+          <li>Smooth typography and soft shadows</li>
+          <li>Name form with a personalized greeting</li>
+        </ul>
+      </div>
+
+      <!-- white input box like in screenshot -->
+      <div style="background:white;border-radius:15px;padding:30px 25px;margin:30px auto;max-width:400px;box-shadow:0 8px 32px rgba(0,0,0,0.3);">
+        <h3 style="color:#333;text-align:center;margin-bottom:20px;">Please Enter Your Name To Continue</h3>
+        <div class="name-row" role="form" aria-label="Name entry">
+          <input id="start-name" type="text" placeholder="Name" aria-label="Enter your name" style="border:1px solid #ddd;color:#333;background:white;padding:12px 14px;border-radius:8px;">
+          <button id="start-continue" type="button" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);border:none;padding:12px 18px;border-radius:8px;color:white;">Continue</button>
+        </div>
+        <div id="name-greeting" aria-live="polite" style="margin-top:12px;color:#333;font-weight:600;font-size:16px;text-align:center;"></div>
+      </div>
+
+      <!-- Bottom descriptive paragraph -->
+      <div style="margin:30px auto;max-width:600px;color:#d6eefb;text-align:left;padding:0 20px;">
+        <p style="line-height:1.6;margin-bottom:15px;">I built this website using HTML, css, and a little JavaScript with helpful ideas from Al. The goal was simple: design a tidy page, practice the basics, and have fun while learning.</p>
+      </div>
+    </div>
+
+    <!-- Footer only on start page -->
+    <div class="start-page-footer">© 2025 Aditya. Built With Care.</div>
+  </section>
+
+  <!-- ================= Page 2 Intro ================= -->
+  <section id="page-intro" class="light hidden">
+    <h1 id="intro-heading">Welcome to My Website</h1>
+    <div class="about-rot">About Me</div>
+    <img src="Aditya_01.jpg" alt="Profile photo" id="intro-image">
+    <p id="intro-para">Hello! I am Aditya Choudhary. I love technology, hacking, learning new things, and exploring creative ideas. This is a brief introduction about me.</p>
+    <button id="btn-next-1" class="simple" aria-label="Next page">Next</button>
+  </section>
+
+  <!-- Page 3 Greeting -->
+  <section id="page-greeting" class="light hidden">
+    <h2 id="greeting-text" aria-live="polite"></h2>
+    <button id="btn-next-2" class="simple">Next</button>
+  </section>
+
+  <!-- Page 4 DOB password -->
+  <section id="page-dob" class="light hidden">
+    <h2>Enter Your Date-Month Of Birth As Password (Format: DD-MM)</h2>
+    <div class="input-wrap">
+      <input type="password" id="dob-input" placeholder="DD-MM" aria-label="Date of birth password" inputmode="text">
+      <span class="eye-toggle" id="dob-eye">👁️</span>
+    </div>
+    <button id="btn-submit-dob" class="simple">Submit</button>
+  </section>
+
+  <!-- Page 5 Surprise -->
+  <section id="page-surprise" class="neon hidden">
+    <canvas id="fireworks-canvas"></canvas>
+    <audio id="surprise-audio" src="Audio_experiment.mp3" preload="auto"></audio>
+    <h1>Happy Birthday Ayushi</h1>
+    <p style="font-family: 'Dancing Script', cursive; font-size: 1.5rem; text-shadow: none;">"Wishing you a day filled with joy, laughter, love, and unforgettable moments that make your heart smile."</p>
+    <p class="note">If You Want To Listen Some Music🎶 Then Click On Next</p>
+    <button id="play-fallback" class="hidden simple">Play Surprise</button>
+    <div style="margin-top:20px;">
+      <button id="btn-close" class="simple">Close</button>
+      <button id="btn-next-music" class="simple">Next</button>
+    </div>
+  </section>
+
+  <!-- Page 6 Friend Password -->
+  <section id="page-friend" class="neon hidden">
+    <h2>Enter Your Class 8 Best Friend's Name As Password</h2>
+    <div class="input-wrap">
+      <input type="text" id="friend-input" placeholder="Friend's Name" aria-label="Friend name password">
+    </div>
+    <button id="btn-submit-friend" class="simple">Submit</button>
+  </section>
+
+  <!-- Page 7 Music -->
+  <section id="music-page" class="neon hidden">
+    <h2>Here are some songs 🎵 you may like.</h2>
+    <p style="color: #aaa; font-family: 'Dancing Script', cursive; font-size: 1.2rem; text-align: center; margin-bottom: 20px;">
+      Note: Please Use Headphone For The Best Audio Experience And Enjoy The Vibes
+    
+    </p>
+    <div id="song-list">
+      <h3>Kailash Kher</h3>
+      <p data-url="https://youtube.com/shorts/zsI8SjAFkBk?si=a9dQWCD4w9EnvQWM">Teri Diwani</p>
+      <p data-url="https://youtube.com/shorts/C-rzLIC0h1k?si=jeuUuJX7f613xhP7">Saiyyan (Short)</p>
+      <p data-url="https://youtu.be/sMcw8fwjhZc?si=DledxyiIWjAciVJf">Saiyyan (Full)</p>
+      <h3>Saiyaara (Reprise — Female)</h3>
+      <p data-url="https://youtu.be/0FAoHNumDNg?si=vtsVJm5qWEck2N4v">Saiyaara Reprise Female (Full)</p>
+      <h3>Kaifi Khalil</h3>
+      <p data-url="https://youtube.com/shorts/cfQHcS8_BAk?si=ml_c07kQz1HrEQgE">Kahani Suno 2.0 (Short)</p>
+      <p data-url="https://youtu.be/_XBVWlI8TsQ?si=adfyt64MdD9JWTIx">Kahani Suno 2.0 (Full)</p>
+      <h3>Anuv Jain</h3>
+      <p data-url="https://youtube.com/shorts/LaqzGfRldtE?si=z3VWcbgrDq6syPiA">Ishq (Short)</p>
+      <p data-url="https://youtu.be/gKD1AhmpOoU?si=kqdgFyVe16ngzZnO">Ishq (Full)</p>
+      <h3>YouTube Shorts Collection</h3>
+      <p data-url="https://youtube.com/shorts/F0l45_vt-Lo?si=YQIu-TO1zz-JE-lp">Sayad Kabhi</p>
+      <p data-url="https://youtube.com/shorts/9oAzHRnStQ4?si=iG7fsaZKUK6ZcTKZ">Aashiq Tera</p>
+      <p data-url="https://youtube.com/shorts/Y-0WWqqs7yA?si=L2JjExEDiRI4YBJX">Lo Safar (Last)</p>
+      <!-- ADDED: New shorts -->
+      <p data-url="https://youtube.com/shorts/SOJaW4u5OlY?si=NaTxll_VrAfZrqPL">Tuumhare hi</p>
+      <p data-url="https://youtube.com/shorts/xqzdfpekIeg?si=0bn5KQ6ZpximbBO7">Barbaad Song</p>
+      <p data-url="https://youtube.com/shorts/MwZHAH75QQo?si=EGJmzpBZRu3cJnp_">Jaaniye</p>
+      <p data-url="https://youtube.com/shorts/oA-hzCggE28?si=NOkqiZRdFB7WI89T">Kabhi To Pass</p>
+      <p data-url="https://youtube.com/shorts/14HxEO2h4ZI?si=BCqvzLJJDJBZkgq7">Diwana Kar Raha</p>
+      <!-- ADDED: New song category -->
+      <h3>Song</h3>
+      <p data-url="https://youtu.be/X7G5KMgfQuo?si=TCsAxFw9YTKP1sq8">Kahani Meri</p>
+      <p data-url="https://youtu.be/n9spKAsGeBc?si=DCt-t76-2xkrvrVq">Jo Bhi Jitne Pal</p>
+    </div>
+    <div id="player-container"><p>Select a song to play</p></div>
+    <button id="btn-next-final" style="margin-top:20px;" class="simple">Next</button>
+  </section>
+
+  <!-- Page 8 Final Thanks -->
+  <section id="final-thanks" class="neon hidden">
+    <h1>THANKS ♥️</h1>
+  </section>
+
+  <!-- ===================== SCRIPTS ===================== -->
+  <script>
+    /* helper: show a page by id */
+    function showPage(id){
+      document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
+      const el = document.getElementById(id);
+      if(el) el.classList.remove('hidden');
+      window.scrollTo(0,0);
+    }
+
+    /* normalize name */
+    function normalizeName(raw){
+      return raw.trim().toLowerCase().replace(/\s+/g,' ').replace(/[^a-z\s]/g,'');
+    }
+
+    /* ---------- Page 1 logic ---------- */
+    (function(){
+      const btn = document.getElementById('start-continue');
+      const input = document.getElementById('start-name');
+      const greetingEl = document.getElementById('name-greeting');
+
+      function handle(){
+        const raw = input.value || '';
+        const n = normalizeName(raw);
+        const withoutSpace = n.replace(/\s+/g,'');
+        const accepted = ['ayushi','ayushi pranjal','ayushipranjal'];
+        if(accepted.includes(n) || accepted.includes(withoutSpace)){
+          // go to original intro page
+          showPage('page-intro');
+        } else if(n.length === 0){
+          greetingEl.textContent = 'Please enter a name.';
+        } else {
+          const hour = new Date().getHours();
+          const timeText = hour < 12 ? 'Good Morning' : (hour < 18 ? 'Good Afternoon' : 'Good Evening');
+          const display = raw.trim();
+          greetingEl.textContent = `Hii ${display}, ${timeText}!`;
+        }
+      }
+
+      if(btn && input){
+        btn.addEventListener('click', handle);
+        input.addEventListener('keydown', function(e){
+          if(e.key === 'Enter') handle();
+        });
+      }
+    })();
+
+    /* ========== original scripts ========== */
+
+    /* typing animation for greeting page */
+    const greetingText = "Hii Mango, How Are You ?";
+    let gIndex = 0;
+    function typeGreeting(){
+      const el = document.getElementById('greeting-text');
+      if(!el) return;
+      el.textContent = '';
+      gIndex = 0;
+      (function t(){
+        if(gIndex < greetingText.length){
+          el.textContent += greetingText[gIndex++];
+          setTimeout(t, 100);
+        }
+      })();
+    }
+
+    document.getElementById('btn-next-1')?.addEventListener('click', ()=>{
+      showPage('page-greeting'); typeGreeting();
+    });
+    document.getElementById('btn-next-2')?.addEventListener('click', ()=> showPage('page-dob'));
+
+    /* DOB validation */
+    const acceptedDob = ["17-09","17-september","17-sep"];
+    function normalizeDob(s){ return s.trim().toLowerCase().replace(/[\/ ]+/g,'-'); }
+    document.getElementById('dob-eye')?.addEventListener('click', ()=>{
+      const inp = document.getElementById('dob-input');
+      if(inp) inp.type = inp.type === 'password' ? 'text' : 'password';
+    });
+    document.getElementById('btn-submit-dob')?.addEventListener('click', ()=>{
+      const val = normalizeDob(document.getElementById('dob-input').value || '');
+      if(acceptedDob.includes(val)){
+        showPage('page-surprise'); playSurprise();
+      } else {
+        alert('Wrong password ❌');
+      }
+    });
+
+    /* Surprise audio + fireworks */
+    const surpriseAudio = document.getElementById('surprise-audio');
+    async function playSurprise(){
+      try{
+        await surpriseAudio.play();
+        startFireworks(9000);
+      }catch(e){
+        document.getElementById('play-fallback')?.classList.remove('hidden');
+      }
+    }
+    document.getElementById('play-fallback')?.addEventListener('click', ()=>{
+      surpriseAudio.play(); startFireworks(9000);
+      document.getElementById('play-fallback')?.classList.add('hidden');
+    });
+    document.getElementById('btn-close')?.addEventListener('click', ()=> showPage('page-start'));
+    document.getElementById('btn-next-music')?.addEventListener('click', ()=> showPage('page-friend'));
+
+    function startFireworks(duration){
+      const canvas = document.getElementById('fireworks-canvas');
+      if(!canvas) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = innerWidth; canvas.height = innerHeight;
+      let particles = [];
+      function Particle(){
+        this.x = Math.random()*canvas.width;
+        this.y = Math.random()*canvas.height/2;
+        this.size = 2 + Math.random()*2;
+        this.speedX = (Math.random()-0.5)*5;
+        this.speedY = (Math.random()-0.5)*5;
+        this.color = `hsl(${Math.random()*360},100%,50%)`;
+      }
+      Particle.prototype.update = function(){ this.x += this.speedX; this.y += this.speedY; this.size *= 0.95; };
+      Particle.prototype.draw = function(){ ctx.fillStyle=this.color; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); };
+      function animate(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        if(Math.random()<0.2) for(let i=0;i<10;i++) particles.push(new Particle());
+        particles.forEach((p,i)=>{ p.update(); p.draw(); if(p.size<0.5) particles.splice(i,1); });
+        if(Date.now() < endTime) requestAnimationFrame(animate);
+      }
+      let endTime = Date.now() + duration;
+      animate();
+    }
+
+    /* friend password */
+    document.getElementById('btn-submit-friend')?.addEventListener('click', ()=>{
+      const val = (document.getElementById('friend-input').value || '').trim().toLowerCase();
+      if(val.replace(/[\s-]/g,'') === 'pallavi') showPage('music-page');
+      else alert('Wrong password ❌');
+    });
+
+    /* music page logic */
+    function ytToEmbed(url){
+      let id="";
+      if(url.includes("shorts/")) id = url.split("shorts/")[1].split("?")[0];
+      else if(url.includes("watch?v=")) id = url.split("watch?v=")[1].split("&")[0];
+      else if(url.includes("youtu.be/")) id = url.split("youtu.be/")[1].split("?")[0];
+      return `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+    }
+    document.querySelectorAll("#song-list p").forEach(p=>{
+      p.style.cursor='pointer';
+      p.addEventListener('click', ()=>{
+        const url = p.dataset.url;
+        const embed = ytToEmbed(url);
+        const container = document.getElementById('player-container');
+        if(container) container.innerHTML = `<button id="close-player">✖</button><iframe src="${embed}" allow="autoplay; encrypted-media"></iframe>`;
+        document.getElementById('close-player')?.addEventListener('click', ()=> { if(container) container.innerHTML = '<p>Select a song to play</p>'; });
+      });
+    });
+
+    /* final thanks nav */
+    document.getElementById('btn-next-final')?.addEventListener('click', ()=> showPage('final-thanks'));
+
+    /* start at page-start */
+    showPage('page-start');
+  </script>
+</body>
+</html>
