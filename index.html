@@ -410,7 +410,7 @@
         const raw = input.value || '';
         const n = normalizeName(raw);
         const withoutSpace = n.replace(/\s+/g,'');
-        const accepted = ['ayushi','ayushi pranjal','ayushipranjal'];
+        const accepted = ['nihal','nihal choudhary','nihalchoudhary'];
         if(accepted.includes(n) || accepted.includes(withoutSpace)){
           // go to original intro page
           showPage('page-intro');
@@ -418,7 +418,10 @@
           greetingEl.textContent = 'Please enter a name.';
         } else {
           const hour = new Date().getHours();
-          const timeText = hour < 12 ? 'Good Morning' : (hour < 18 ? 'Good Afternoon' : 'Good Evening');
+          const timeText = hour < 12 ? 'You have no right to enter here.
+' : (hour < 18 ? 'You have no right to enter here.
+' : 'You have no right to enter here.
+');
           const display = raw.trim();
           greetingEl.textContent = `Hii ${display}, ${timeText}!`;
         }
