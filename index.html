@@ -418,7 +418,7 @@
           greetingEl.textContent = 'Please enter a name.';
         } else {
           const hour = new Date().getHours();
-          const timeText = hour < 12 ? 'You have no right to enter here 1' : (hour < 18 ? 'You have no right to enter here 2' : 'You have no right to enter here 3');
+          const timeText = hour < 12 ? 'You Have No Right To Enter Here' : (hour < 18 ? 'You Have No Right To Enter Here' : 'You Have No Right To Enter Here');
           const display = raw.trim();
           greetingEl.textContent = `Hii ${display}, ${timeText}!`;
         }
